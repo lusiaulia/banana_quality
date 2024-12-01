@@ -1,6 +1,6 @@
 # Laporan Proyek Machine Learning - Lusi Aulia Jati
 
-![Gambar Banana](./banana_quality.jpeg)
+![Gambar Banana](https://github.com/lusiaulia/banana_quality/blob/959b64bcb33356fc819a9f51a76d52943dabd2ad/banana_quality.jpeg)
 
 ## Domain Proyek
 Buah pisang ketika dipanen memperhatikan ukuran, umur buah, dan hal lainnya. Kemudian setelah dipanen dapat diklasifikasikan apakah buah pisang yang dipanen berkualitas baik atau tidak. Jika buah tidak berkualitas baik, tentu akan merugikan. Sehingga pada penelitian kali ini akan dicoba analisis bagaimana faktor kematangan, umur panen, tingkat kemanisan, keasaman buah, ukuran buah, berat buah, dan softness berpengaruh terhadap kualitas buah. 

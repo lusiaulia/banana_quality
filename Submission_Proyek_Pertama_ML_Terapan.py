@@ -17,19 +17,15 @@ import pandas as pd
 get_ipython().run_line_magic('matplotlib', 'inline')
 import seaborn as sns
 
-# load the dataset
-bnn = pd.read_csv("./banana_quality.csv")
-bnn.head()
-
 
 # In[2]:
 
 
-# # Clone dataset dari github
-# !git clone https://github.com/lusiaulia/banana_quality.git
-# # mendefinisikan dataframe
-# bnn = pd.read_csv("./banana_quality.csv")
-# bnn.head()
+# Clone dataset dari github
+get_ipython().system('git clone https://github.com/lusiaulia/banana_quality.git')
+# mendefinisikan dataframe
+bnn = pd.read_csv("./banana_quality.csv")
+bnn.head()
 
 
 # In[3]:
