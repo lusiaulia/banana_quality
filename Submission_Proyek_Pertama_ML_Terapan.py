@@ -1,21 +1,28 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Proyek Pertama ML Terapan
+# # Klasifikasi Kualitas Buah Pisang
 # - **Nama:** Lusi Aulia Jati
 # - **Email:** lusiauliajati@gmail.com
 # - **Sumber Data:** https://www.kaggle.com/datasets/l3llff/banana
 
-# ###  Data Loading
+# ##  Load Data
 
 # In[1]:
 
 
+#mengimpor library yang diperlukan
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 get_ipython().run_line_magic('matplotlib', 'inline')
 import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
+from xgboost import XGBClassifier
 
 
 # In[2]:
@@ -28,6 +35,8 @@ bnn = pd.read_csv("./banana_quality.csv")
 bnn.head()
 
 
+# Terlihat tampilan dari data, terdapat 7 data berbentuk kuantitatif dan 1 data kualitatif. Akan dilihat berapa banyak variasi data kualitatif pada data Quality.
+
 # In[3]:
 
 
@@ -37,7 +46,7 @@ jenis_data = bnn["Quality"].value_counts()
 print(jenis_data)
 
 
-# Karena data Quality merupakan data kualitatif (Bad dan Good). Sehingga akan didefinisikan Good = 1 dan Bad = 0.
+# Terdapat 2 jenis data kualitatif (Bad dan Good). Sehingga akan didefinisikan Good = 1 dan Bad = 0.
 
 # In[4]:
 
@@ -53,6 +62,8 @@ bnn.head()
 bnn.info()
 
 
+# Total terdapat 8000 data, dengan 7 data bertipe float dan 1 jenis data integer (biner 1 dan 0).
+
 # In[6]:
 
 
@@ -60,7 +71,10 @@ bnn.info()
 bnn.describe()
 
 
-# ### Exploratory Data Analysis
+# Ketujuh data memiliki rentang berkisar -8 hingga 8, sebelum digunakan untuk proses prediksi akan dilebih sempitkan lagi interval range datanya menjadi -1 hingga 1 agar lebih algoritma bisa bekerja lebih maksimal
+
+# ## Exploratory Data Analysis
+# ### Data Cleaning
 
 # In[7]:
 
@@ -108,6 +122,8 @@ bnn["Quality"].value_counts()
 
 # Jumlah perbandingan sampel data kategori 'Bad' dan 'Good' memiliki jumlah yang hampir seimbang 3919 dan 3726 sehingga dipenelitian ini tidak dilakukan perubahan lagi untuk jumlah sampel.
 
+# ### Feature Selection
+
 # In[12]:
 
 
@@ -119,17 +135,16 @@ sns.heatmap(data=correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5
 plt.title("Correlation Matrix untuk Fitur Numerik ", size=10)
 
 
-# Secara korelasi data karakteristik buah memiliki korelasi yang kecil sekali terhadap kualitas buah pisang, seperti tingkat keasaman dan tekstur buah yang memiliki korelasi sebesar -0,02 dan -0,01. Namun untuk karakteristik lainnya menunjukkan korelasi positif yang cukup baik hampir diangka 0,4. 
+# Secara korelasi data karakteristik buah memiliki korelasi yang kecil sekali terhadap kualitas buah pisang, seperti tingkat keasaman dan tekstur buah yang memiliki korelasi sebesar -0,02 dan -0,01. Namun untuk karakteristik lainnya menunjukkan korelasi positif yang cukup baik hampir diangka 0,4. Sehingga untuk data input akan digunakan karakteristik yang menunjukkan korelasi positif (Ukuran, Berat, Kemanisan, Waktu Panen, dan Kematangan Buah).  
 
 # Menggunakan model K-Nearest Neighbor (KNN), Logistic Regression, dan XGBoost. Akan digunakan data train 80% dan test 20%.
+
+# ### Data Transforms
 
 # In[13]:
 
 
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
-
-X = bnn.drop(['Quality'], 1)
+X = bnn.drop(['Quality','Acidity','Softness'], 1)
 y = bnn['Quality']
 
 scaler = MinMaxScaler()
@@ -146,13 +161,11 @@ print(f'Total # of sample in train dataset: {len(X_train)}')
 print(f'Total # of sample in test dataset: {len(X_test)}')
 
 
+# ## Modeling & Evaluate Model
 # ### KNN Model
 
 # In[15]:
 
-
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score
 
 knn = KNeighborsClassifier()
 knn.fit(X_train, y_train)
@@ -177,12 +190,12 @@ def evaluasi_model(model, X_test, y_test):
 evaluasi_model(knn, X_test, y_test)
 
 
+# Dihasilkan akurasi sebesar 91,8% pada model KNN pada data test.
+
 # ### Logistic Regression
 
 # In[18]:
 
-
-from sklearn.linear_model import LogisticRegression
 
 LR = LogisticRegression()
 LR.fit(X_train, y_train)
@@ -194,13 +207,14 @@ LR.fit(X_train, y_train)
 evaluasi_model(LR, X_test, y_test)
 
 
+# Dihasilkan akurasi sebesar 87,2% pada model regresi logistik pada data test.
+
 # ### XG Boost
 
 # In[20]:
 
 
 # !pip install xgboost
-from xgboost import XGBClassifier
 
 XGB = XGBClassifier()
 XGB.fit(X_train, y_train)
@@ -212,6 +226,8 @@ XGB.fit(X_train, y_train)
 evaluasi_model(XGB, X_test, y_test)
 
 
-# ### Hasil
+# Dihasilkan akurasi sebesar 92,1% pada model XGBoost pada data test.
 
-# Dari ketiga model terlihat model dengan akurasi yang paling besar yaitu model XGBoost dan KNN dengan akurasi 97%. Mengindikasikan bahwa model sudah bisa mengklasifikasikan data karakteristik buah pisang apakah berkualitas baik atau tidak dengan baik. Namun untuk penelitian selanjutnya akan lebih baik jika digunakan evaluasi lainnya seperti precision, recall, F1-score, atau AUC-ROC dan pengecekan apakah model overfit atau tidak supaya jika digunakan data baru model dapat memprediksi dengan baik.
+# ## Conclusion
+
+# Dari ketiga model terlihat model dengan akurasi yang paling besar yaitu model XGBoost dan KNN dengan akurasi berkisar 92%. Mengindikasikan bahwa model sudah bisa mengklasifikasikan data karakteristik buah pisang apakah berkualitas baik atau tidak dengan baik. Namun untuk penelitian selanjutnya akan lebih baik jika digunakan evaluasi lainnya seperti precision, recall, F1-score, atau AUC-ROC dan pengecekan apakah model overfit atau tidak supaya jika digunakan data baru model dapat memprediksi dengan baik.
