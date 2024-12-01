@@ -6,7 +6,7 @@
 Pada sektor agribisnis banyak sekali yang perlu diperhatikan dari proses awal hingga akhir seperti pengelolaan lahan, pemilihan bibit, perawatan tanaman dan pendistribusian baik ekspor maupun domestik. Mengambil contoh
 pada tanaman buah pisang, ekspor buah pisang Indonesia sendiri memiliki potensi yang besar dibuktikan pada 2021, volume ekspor pisang menduduki posisi kedua tertinggi setelah manggis dengan angka 5.500 ton per Mei 2021 (mediaindonesia.com,2021).
 Namun meski memiliki potensi yang besar, masih terdapat hambatan yang membuat sulitnya memaksimalkan potensi yang ada seperti persyaratan yang perlu dipenuhi dalam mengekspor buah salah satunya yaitu kualitas buah
-yang harus memenuhi standar ekspor dan penyesuaian sesuai preferensi konsumen pasar dunia [(Rara,2021))(https://journal.ipb.ac.id/index.php/jagbi/article/view/36753/24583). Sehingga, dengan hal ini diperlukannya peningkatan kualitas buah yang dihasilkan. 
+yang harus memenuhi standar ekspor dan penyesuaian sesuai preferensi konsumen pasar dunia [Rara,2021](https://journal.ipb.ac.id/index.php/jagbi/article/view/36753/24583). Sehingga, dengan hal ini diperlukannya peningkatan kualitas buah yang dihasilkan. 
 Pada penelitian ini, akan dilakukan percobaan klasifikasi baik tidaknya kualitas buah pisang berdasarkan data karakteristik buah dengan harapan dapat diketahui apakah ada kaitan antara karakteristik buah dengan kualitas. 
 Jika karakteristik buah dapat menggambarkan kualitas buah, maka dapat dilakukan penelitian lebih lanjut karakteristik yang paling mewakili dan yang tidak, serta bagaimana mengoptimalkan tiap rakteristik agar buah memiliki kualitas optimal.  
 
