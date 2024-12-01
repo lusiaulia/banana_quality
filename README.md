@@ -23,7 +23,9 @@ Jika karakteristik buah dapat menggambarkan kualitas buah, maka dapat dilakukan 
 - Menggunakan model machine learning untuk proses klasifikasi kualitas buah. Model yang digunakan yaitu K-Nearest Neighbor (KNN), Logistik Regression, dan XGBoost.
 
 ## Data Understanding
-Data yang digunakan yaitu data karakteristik buah pisang yang dipanen dengan total berisi 8000 data. Karakterisitik buah yang dimaksud adalah ukuran, berat, tingkat kemanisan, tekstur softness, waktu panen, kematangan, keasaman dan kualitas buah. Data bersumber dari [Kaggle Banana Quality Dataset](https://www.kaggle.com/datasets/l3llff/banana). Berikut nama variabel karakteristik buah pisang pada dataset yang akan digunakan dalam proses pemodelan : 
+Data bersumber dari [Kaggle Banana Quality Dataset](https://www.kaggle.com/datasets/l3llff/banana).
+Tahapan pada data understanding meliputi Exploratory Data Analysis (EDA), yang kemudian diperoleh informasi data yang digunakan yaitu data karakteristik buah pisang 
+yang dipanen dengan total berisi 8000 data pada tiap karakteristik, yang dengan 8000 data kualitas total terdapat 8000 x 8 = 64000 data. Karakterisitik buah yang dimaksud adalah ukuran, berat, tingkat kemanisan, tekstur softness, waktu panen, kematangan, keasaman dan kualitas buah. Berikut nama variabel yang tercantum dalam data:
 
 - Size : data ukuran buah
 - Weight : data berat buah pisang
@@ -34,18 +36,19 @@ Data yang digunakan yaitu data karakteristik buah pisang yang dipanen dengan tot
 - Acidity : tingkat keasaman buah
 - Quality : kualitas buah (good atau bad)
   
-Ketujuh data kecuali kualitas adalah data numerik, data tersebut sudah dilakukan proses standarisasi sehingga bukan merupakan data mentah. Namun dalam proses kali ini akan dilakukan penskalaan ulang dengan rentang yang lebih sempit untuk memudahkan algoritma memahami data untuk memprediksi kualitas buah. 
+Ketujuh data kecuali data kualitas buah adalah data numerik, sedangkan data kualitas buah merupakan data kualitatif. 
+Data-data yang bertipe numerik tersebut sudah dilakukan proses standarisasi sehingga bukan merupakan data mentah. Namun nantinya dalam proses data preparation akan dilakukan penskalaan ulang dengan rentang yang lebih sempit untuk memudahkan algoritma memahami data untuk memprediksi kualitas buah. 
+
+Ketika data diamati pada proses ini ternyata tidak ditemukan data kosong (null) dan ternyata terdapat outliers dari data sehingga untuk menghindari kesalahan model dalam membaca pola data dilakukan penghapusan data outlier. 
 
 ## Data Preparation
-Tahapan pengolahan data yang dilakukan meliputi proses Exploratory Data Analysis (EDA) yang mencakup : 
-### Label Encoding
-Data kualitas buah merupakan data kualitatif, sehingga diperlukan proses encoding menjadi data numerik agar dapat dilakukan pemrosesan data. Pada penelitian ini, proses ini dilakukan lebih dahulu sebelum proses data preparation lainnya.
-### Data Cleaning
-Pada proses ini akan dilihat apakah data utuh atau terdapat data kosong, jika terdapat data kosong (null) maka bisa dilakukan pengisian data atau dihapus.Kemudian apakah data berisi outlier atau tidak, jika iya untuk menghindari kesalahan model dalam membaca pola data dilakukan penghapusan data outlier. 
+Tahapan pengolahan data yang dilakukan meliputi proses yang mencakup : 
+### Label Encoding Fitur Kategori
+Data kualitas buah merupakan data kualitatif (termasuk data kategori), sehingga diperlukan proses encoding menjadi data numerik agar dapat dilakukan pemrosesan data. Pada penelitian ini, proses ini dilakukan lebih dahulu sebelum proses data preparation lainnya.
 ### Feature Selection
 Pada tahap ini dilihat korelasi antar data satu sama lain dan terutama terhadap data kualitas buah. Karakteristik buah yang memiliki korelasi baik akan dipilih menjadi variabel penentu kualitas pada model yang dibuat nantinya. 
-### Data Transform & Split Data
-Seperti yang sudah dijelaskan pada bagian 'Data Understanding', akan dilakukan proses transformasi data melalui penskalaan yang lebih sempit dalam penelitian ini menggunakan MinMax Scaler. Selain itu, data juga dibagi menjadi data training dan test, dengan proporsi 80% data training dan 20% data test.
+### Data Transform (Standarisasi) & Pembagian Data
+Seperti yang sudah dijelaskan pada bagian 'Data Understanding', akan dilakukan proses transformasi data melalui penskalaan yang lebih sempit dalam penelitian ini menggunakan MinMax Scaler. Selain itu, data juga dibagi menjadi data training dan test sengan train_test_split dari library skitlearn, dengan proporsi 80% data training dan 20% data test.
 
 ## Modeling
 Pada penelitian ini dibuat 3 jenis model yang biasa digunakan dalam proses klasifikasi, yaitu : 
@@ -54,13 +57,14 @@ Metode yang digunakan untuk melakukan klasifikasi dari suatu data berdasarkan at
 ### Logistic Regression
 Metode yang melakukan prediksi dari probabilitas suatu kejadian, dalam prosesnya logistic regression mencari fungsi logistik (sigmoid) terbaik untuk mengklasifikasikan data. 
 ### XGBoost  
-Metode yang bekerja dengan cara menggabungkan hasil prediksi dari berbagai model Decision Tree sehingga menjadi model dengan akurasi dan kinerja yang cukup baik.
+Metode yang bekerja dengan cara menggabungkan hasil prediksi dari berbagai model Decision Tree sehingga menjadi model dengan akurasi dan kinerja yang cukup baik. Kedalaman decision tree bisa disesuaikan, namun juga bisa digunakan nilai default yaitu 100.  
 
-Ketiga model sudah terdapat library masing-masing sehingga bisa diimplementasikan dengan mudah tanpa perlu membuat model dari awal (scratch). 
+Ketiga model sudah terdapat library masing-masing sehingga bisa diimplementasikan dengan mudah tanpa perlu membuat model dari awal (scratch). Penelitian kali ini ketiga model menggunakan parameter default tanpa dilakukan proses parameter tuning (parameter default seperti contohnya pada KNN menggunakan n-neighbors bawaan di n=5). 
 
 ## Evaluation & Conclusion
 - Proses evaluasi menggunakan accuracy score, yang mengukur nilai akurasi yang didapatkan dari jumlah data bernilai positif yang diprediksi positif dan data bernilai negatif yang diprediksi negatif dibagi dengan jumlah seluruh data di dalam dataset. Dari ketiga model terlihat model dengan akurasi yang paling besar yaitu model XGBoost dan KNN dengan akurasi berkisar 92%, sedangkan Logistic Regression menghasilkan akurasi 87%. 
 - Hasil akurasi mengindikasikan bahwa model sudah bisa mengklasifikasikan data karakteristik buah pisang apakah berkualitas baik atau tidak dengan baik. Sehingga bisa dikatakan bahwa dalam penelitian ini data karakteristik buah bisa menggambarkan kualitas buah pisang. 
 - Dilihat dari skor korelasi dan hasil prediksi maka data karakteristik Ukuran, Berat, Kemanisan, Waktu Panen, dan Kematangan Buah memiliki pengaruh terhadap kualitas buah. Sedangkan keasaman dan tekstur memiliki korelasi yang sangat kecil bahkan hanya berada diangka 0,x.
 - Terkadang dalam data nilai korelasi belum tentu menggambarkan sebab-akibat, sehingga untuk penelitian selanjutnya akan lebih baik jika dicoba juga mengikutsertakan kedua karakteristik buah tersebut dalam pemodelan atau mencoba kombinasi karakteristik lainnya. 
-- Kemudian dapat juga digunakan evaluasi lain seperti precision, recall, F1-score, atau AUC-ROC serta pengecekan apakah model overfit atau tidak supaya jika digunakan data baru model yang sudah dibuat dapat memprediksi dengan kualitas buah dengan baik.
+- Dapat juga digunakan evaluasi lain seperti precision, recall, F1-score, atau AUC-ROC serta pengecekan apakah model overfit atau tidak supaya jika digunakan data baru model yang sudah dibuat dapat memprediksi dengan kualitas buah dengan baik.
+- Perihal model, dapat dicoba untuk lakukan tuning parameter agar bisa diperoleh parameter lebih optimal dari tiap model. 
