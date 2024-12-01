@@ -20,7 +20,7 @@ Jika karakteristik buah dapat menggambarkan kualitas buah, maka dapat dilakukan 
 - Mengetahui data karakteristik buah mana saja yang berpengaruh terhadap kualitas buah pisang.
 
 ### Solution Statements
-
+- Menggunakan model machine learning untuk proses klasifikasi kualitas buah. Model yang digunakan yaitu K-Nearest Neighbor (KNN), Logistik Regression, dan XGBoost.
 
 ## Data Understanding
 Data yang digunakan yaitu data karakteristik buah pisang yang dipanen dengan total berisi 8000 data. Karakterisitik buah yang dimaksud adalah ukuran, berat, tingkat kemanisan, tekstur softness, waktu panen, kematangan, keasaman dan kualitas buah. Data bersumber dari [Kaggle Banana Quality Dataset](https://www.kaggle.com/datasets/l3llff/banana). Berikut nama variabel karakteristik buah pisang pada dataset yang akan digunakan dalam proses pemodelan : 
