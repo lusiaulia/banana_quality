@@ -49,6 +49,7 @@ Data kualitas buah merupakan data kualitatif (termasuk data kategori), sehingga 
 Sementara setelah sebelumnya dilihat visualisasi data menggunakan boxplot, terdapat cukup banyak data outlier sehingga dengan asumsi kejadian data outlier merupakan kejadian langka namun tidak termasuk dalam pola 
 data sehingga perlu dilakukan penghapusan outlier supaya tidak mempengaruhi hasil prediksi. Kali ini digunakan metode IQR untuk mengidentifikasi outlier dan menghapusnya, metode IQR dengan terlebih dahulu dihitung kuartil 1 (Q1) dan kuartil 3 (Q3). 
 Nilai IQR adalah selisih dari Q3 dikurang Q1. Nilai outlier adalah nilai yang lebih kecil dari Q1 dikurang 1,5 kali IQR dan nilai yang lebih besar dari Q3 ditambah 1,5 kali IQR. Setelah baris yang terdapat data outlier dihapus diperoleh sebanyak 7645 data per karakteristik buah. Setelah ini, data akan dipersiapkan ditahap Data Preparation sebelum digunakan untuk proses training model.
+
 ### Feature Selection
 Pada tahap ini dilihat korelasi antar data satu sama lain dan terutama terhadap data kualitas buah. Karakteristik buah yang memiliki korelasi baik akan dipilih menjadi variabel penentu kualitas pada model yang dibuat nantinya. 
 ### Data Transform (Standarisasi) & Pembagian Data
