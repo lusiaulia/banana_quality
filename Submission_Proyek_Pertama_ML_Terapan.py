@@ -90,7 +90,7 @@ bnn.isnull().sum()
 sns.boxplot(bnn)
 
 
-# Masih terdapat cukup banyak data outlier sehingga perlu dilakukan penghapusan outlier supaya tidak mempengaruhi hasil prediksi
+# Masih terdapat cukup banyak data outlier, sehingga dengan asumsi kejadian data outlier merupakan kejadian langka namun tidak termasuk dalam pola data sehingga perlu dilakukan penghapusan outlier supaya tidak mempengaruhi hasil prediksi. Kali ini digunakan metode IQR untuk mengidentifikasi outlier dan menghapusnya, metode IQR dengan terlebih dahulu dihitung kuartil 1 (Q1) dan kuartil 3 (Q3). Nilai IQR adalah selisih dari Q3 dikurang Q1, nilai outlier adalah nilai yang lebih kecil dari Q1 dikurang 1,5 kali IQR dan nilai yang lebih besar dari Q3 ditambah 1,5 kali IQR. 
 
 # In[9]:
 
@@ -104,7 +104,7 @@ bnn=bnn[~((bnn<(Q1-1.5*IQR))|(bnn>(Q3+1.5*IQR))).any(axis=1)]
 bnn.shape
 
 
-# Setelah dihapus outlier diperoleh sebanyak 7645 data yang tersisa, coba dilihat secara visualisasi boxplotnya kembali
+# Setelah dihapus outlier diperoleh sebanyak 7645 data yang tersisa dan sudah bersih, coba dilihat secara visualisasi boxplotnya kembali
 
 # In[10]:
 
