@@ -39,16 +39,16 @@ yang dipanen dengan total berisi 8000 data pada tiap karakteristik, yang dengan 
 Ketujuh data kecuali data kualitas buah adalah data numerik, sedangkan data kualitas buah merupakan data kualitatif. 
 Data-data yang bertipe numerik tersebut sudah dilakukan proses standarisasi sehingga bukan merupakan data mentah. Namun nantinya dalam proses data preparation akan dilakukan penskalaan ulang dengan rentang yang lebih sempit untuk memudahkan algoritma memahami data untuk memprediksi kualitas buah. 
 
-Ketika data diamati pada proses ini ternyata tidak ditemukan data kosong (null) sehingga tidak perlu dilakukan pengisian data ataupun penghapusan baris akibat data kosong. 
-
-Sementara setelah dilihat visualisasi data menggunakan boxplot, terdapat cukup banyak data outlier sehingga dengan asumsi kejadian data outlier merupakan kejadian langka namun tidak termasuk dalam pola 
-data sehingga perlu dilakukan penghapusan outlier supaya tidak mempengaruhi hasil prediksi. Kali ini digunakan metode IQR untuk mengidentifikasi outlier dan menghapusnya, metode IQR dengan terlebih dahulu dihitung kuartil 1 (Q1) dan kuartil 3 (Q3). 
-Nilai IQR adalah selisih dari Q3 dikurang Q1. Nilai outlier adalah nilai yang lebih kecil dari Q1 dikurang 1,5 kali IQR dan nilai yang lebih besar dari Q3 ditambah 1,5 kali IQR. Setelah baris yang terdapat data outlier dihapus diperoleh sebanyak 7645 data per karakteristik buah. Setelah ini, data akan dipersiapkan ditahap Data Preparation sebelum digunakan untuk proses training model.
+Ketika data diamati pada proses ini ternyata tidak ditemukan data kosong (null) sehingga tidak perlu dilakukan pengisian data ataupun penghapusan baris akibat data kosong. Kemudian juga ditemukan outlier dari data yang terlihat dari visualisasi boxplot yang akan ditangani pada tahap data preparation.
 
 ## Data Preparation
 Tahapan pengolahan data yang dilakukan meliputi proses yang mencakup : 
-### Label Encoding Fitur Kategori
-Data kualitas buah merupakan data kualitatif (termasuk data kategori), sehingga diperlukan proses encoding menjadi data numerik agar dapat dilakukan pemrosesan data. Pada penelitian ini, proses ini dilakukan lebih dahulu sebelum proses data preparation lainnya.
+### Label Encoding Fitur Kategori & Data Cleaning
+Data kualitas buah merupakan data kualitatif (termasuk data kategori), sehingga diperlukan proses encoding menjadi data numerik agar dapat dilakukan pemrosesan data. Pada penelitian ini, proses ini dilakukan lebih dahulu sebelum proses data preparation lainnya. 
+
+Sementara setelah sebelumnya dilihat visualisasi data menggunakan boxplot, terdapat cukup banyak data outlier sehingga dengan asumsi kejadian data outlier merupakan kejadian langka namun tidak termasuk dalam pola 
+data sehingga perlu dilakukan penghapusan outlier supaya tidak mempengaruhi hasil prediksi. Kali ini digunakan metode IQR untuk mengidentifikasi outlier dan menghapusnya, metode IQR dengan terlebih dahulu dihitung kuartil 1 (Q1) dan kuartil 3 (Q3). 
+Nilai IQR adalah selisih dari Q3 dikurang Q1. Nilai outlier adalah nilai yang lebih kecil dari Q1 dikurang 1,5 kali IQR dan nilai yang lebih besar dari Q3 ditambah 1,5 kali IQR. Setelah baris yang terdapat data outlier dihapus diperoleh sebanyak 7645 data per karakteristik buah. Setelah ini, data akan dipersiapkan ditahap Data Preparation sebelum digunakan untuk proses training model.
 ### Feature Selection
 Pada tahap ini dilihat korelasi antar data satu sama lain dan terutama terhadap data kualitas buah. Karakteristik buah yang memiliki korelasi baik akan dipilih menjadi variabel penentu kualitas pada model yang dibuat nantinya. 
 ### Data Transform (Standarisasi) & Pembagian Data
